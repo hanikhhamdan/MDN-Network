@@ -195,9 +195,190 @@
             color: white;
         }
 
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
         .btn-danger {
             background: var(--danger);
             color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .modal-header h2 {
+            color: var(--dark);
+            font-size: 24px;
+            flex: 1;
+        }
+
+        .modal-close {
+            font-size: 28px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-left: auto;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light);
+        }
+
+        /* Multi-select styles */
+        .multi-select-container {
+            position: relative;
+        }
+
+        .multi-select-display {
+            padding: 10px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            min-height: 42px;
+            cursor: pointer;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .multi-select-display:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .selected-item {
+            background: var(--primary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .selected-item .remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .multi-select-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--light);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .multi-select-dropdown.show {
+            display: block;
+        }
+
+        .multi-select-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .multi-select-option:hover {
+            background: var(--light);
+        }
+
+        .multi-select-option input[type="checkbox"] {
+            margin: 0;
         }
 
         /* Stats Cards */
@@ -240,6 +421,49 @@
         .stat-card.success .value { color: var(--success); }
         .stat-card.warning .value { color: var(--warning); }
         .stat-card.danger .value { color: var(--danger); }
+
+        /* Quick Actions */
+        .quick-actions {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .action-card .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .action-card.add { border-color: var(--success); }
+        .action-card.add:hover { background: rgba(16, 185, 129, 0.05); }
+        
+        .action-card.upload { border-color: var(--primary); }
+        .action-card.upload:hover { background: rgba(37, 99, 235, 0.05); }
+        
+        .action-card.export { border-color: var(--warning); }
+        .action-card.export:hover { background: rgba(245, 158, 11, 0.05); }
 
         /* Controls */
         .controls {
@@ -386,58 +610,58 @@
             display: inline-block;
         }
 
-        .status-badge {
-            padding: 4px 10px;
-            border-radius: 20px;
+        .multi-value {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .multi-value span {
+            background: var(--light);
+            padding: 2px 6px;
+            border-radius: 4px;
             font-size: 12px;
-            font-weight: 500;
         }
 
-        .status-badge.online {
-            background: #d1fae5;
-            color: #065f46;
+        .actions-cell {
+            display: flex;
+            gap: 5px;
         }
 
-        .status-badge.offline {
-            background: #fee2e2;
-            color: #991b1b;
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 6px;
         }
 
-        /* File Upload Area */
-        .upload-area {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .btn-edit {
+            background: var(--warning);
+            color: white;
         }
 
-        .upload-box {
-            background: var(--white);
-            border: 2px dashed var(--gray);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
+        .btn-delete {
+            background: var(--danger);
+            color: white;
         }
 
-        .upload-box:hover {
-            border-color: var(--primary);
-            background: #f0f9ff;
-        }
-
-        .upload-box.dragover {
-            border-color: var(--primary);
-            background: #dbeafe;
-        }
-
-        .upload-icon {
-            font-size: 48px;
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
-
-        .hidden {
+        /* Auto-save indicator */
+        .auto-save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
             display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideUp 0.3s ease-out;
+            z-index: 999;
+        }
+
+        .auto-save-indicator.show {
+            display: flex;
         }
 
         /* Responsive */
@@ -458,22 +682,15 @@
             .table-scroll {
                 overflow-x: auto;
             }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
         }
 
-        /* Loading Spinner */
-        .spinner {
-            border: 3px solid var(--light);
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .hidden {
+            display: none;
         }
 
         /* Footer */
@@ -508,11 +725,18 @@
                     Network IP Management Dashboard
                 </h1>
                 <div class="header-actions">
-                    <button class="btn btn-primary" onclick="exportToCSV()">
+                    <button class="btn btn-success" onclick="showAddModal()">
+                        ➕ Add Device
+                    </button>
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                        📤 Import Excel
+                    </button>
+                    <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls" onchange="handleFile(this.files[0])">
+                    <button class="btn btn-warning" onclick="exportToCSV()">
                         📥 Export CSV
                     </button>
-                    <button class="btn btn-success" onclick="exportToJSON()">
-                        📄 Export JSON
+                    <button class="btn btn-primary" onclick="showSettingsModal()">
+                        ⚙️ Settings
                     </button>
                     <button class="btn btn-danger" onclick="logout()">
                         🚪 Logout
@@ -532,8 +756,8 @@
                 <div class="value" id="uniqueIPs">0</div>
             </div>
             <div class="stat-card warning">
-                <h3>Locations</h3>
-                <div class="value" id="totalLocations">0</div>
+                <h3>Stations</h3>
+                <div class="value" id="totalStations">0</div>
             </div>
             <div class="stat-card danger">
                 <h3>Duplicate IPs</h3>
@@ -541,31 +765,43 @@
             </div>
         </div>
 
-        <!-- File Upload Area -->
-        <div class="upload-area">
-            <div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">📁</div>
-                <h3>Drop Excel file here or click to browse</h3>
-                <p style="color: var(--gray); margin-top: 10px;">Supports .xlsx and .xls files</p>
-                <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls" onchange="handleFile(this.files[0])">
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="quick-actions-grid">
+                <div class="action-card add" onclick="showAddModal()">
+                    <div class="icon">➕</div>
+                    <div>Add New Device</div>
+                </div>
+                <div class="action-card upload" onclick="document.getElementById('fileInput').click()">
+                    <div class="icon">📁</div>
+                    <div>Import Data</div>
+                </div>
+                <div class="action-card export" onclick="exportToJSON()">
+                    <div class="icon">💾</div>
+                    <div>Backup JSON</div>
+                </div>
+                <div class="action-card" onclick="clearAllData()">
+                    <div class="icon">🗑️</div>
+                    <div>Clear All</div>
+                </div>
             </div>
         </div>
 
         <!-- Controls -->
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search by IP, location, device..." onkeyup="filterTable()">
+                <input type="text" id="searchInput" placeholder="Search by station, IP, SSID, MAC..." onkeyup="filterTable()">
                 <span class="search-icon">🔍</span>
             </div>
             <div class="filter-group">
-                <select id="locationFilter" onchange="filterTable()">
-                    <option value="">All Locations</option>
+                <select id="stationFilter" onchange="filterTable()">
+                    <option value="">All Stations</option>
                 </select>
                 <select id="bandFilter" onchange="filterTable()">
                     <option value="">All Bands</option>
                 </select>
-                <select id="versionFilter" onchange="filterTable()">
-                    <option value="">All Versions</option>
+                <select id="modeFilter" onchange="filterTable()">
+                    <option value="">All Modes</option>
                 </select>
                 <button class="btn btn-primary" onclick="resetFilters()">
                     🔄 Reset
@@ -580,16 +816,23 @@
                     <table id="dataTable">
                         <thead>
                             <tr>
-                                <th class="sortable" onclick="sortTable(0)">Location</th>
-                                <th class="sortable" onclick="sortTable(1)">Device/MAC</th>
-                                <th class="sortable" onclick="sortTable(2)">Voltage</th>
-                                <th class="sortable" onclick="sortTable(3)">Version</th>
-                                <th class="sortable" onclick="sortTable(4)">IP Address</th>
-                                <th class="sortable" onclick="sortTable(5)">Band</th>
-                                <th class="sortable" onclick="sortTable(6)">Channel Width</th>
-                                <th class="sortable" onclick="sortTable(7)">Frequency</th>
+                                <th class="sortable" onclick="sortTable(0)">Station Name</th>
+                                <th class="sortable" onclick="sortTable(1)">Mode</th>
+                                <th class="sortable" onclick="sortTable(2)">Brand</th>
+                                <th class="sortable" onclick="sortTable(3)">Description</th>
+                                <th class="sortable" onclick="sortTable(4)">MAC Address</th>
+                                <th class="sortable" onclick="sortTable(5)">Voltage</th>
+                                <th class="sortable" onclick="sortTable(6)">Version</th>
+                                <th class="sortable" onclick="sortTable(7)">IP Address</th>
+                                <th class="sortable" onclick="sortTable(8)">Band</th>
+                                <th class="sortable" onclick="sortTable(9)">Channel Width</th>
+                                <th>Frequencies</th>
                                 <th>SSID</th>
+                                <th>Radio Name</th>
+                                <th>Data Rates</th>
+                                <th>HT MCS</th>
                                 <th>Protocol</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -601,8 +844,348 @@
         </div>
 
         <div class="footer">
-            <p>Network IP Dashboard © 2025 | Last updated: <span id="lastUpdate"></span></p>
+            <p>Network IP Dashboard © 2025 | Last updated: <span id="lastUpdate"></span> | Data auto-saved locally</p>
         </div>
+    </div>
+
+    <!-- Add/Edit Device Modal -->
+    <div class="modal" id="deviceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Device</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Row 1 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="stationName">Station Name *</label>
+                        <select id="stationName" required>
+                            <option value="">Select Station</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="wirelessMode">Wireless Mode</label>
+                        <select id="wirelessMode">
+                            <option value="">Select Mode</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <select id="brand">
+                            <option value="">Select Brand</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" placeholder="Device description">
+                    </div>
+                    <div class="form-group">
+                        <label for="macAddress">MAC Address</label>
+                        <input type="text" id="macAddress" placeholder="e.g., 00:11:22:33:44:55">
+                    </div>
+                    <div class="form-group">
+                        <label for="voltage">Voltage</label>
+                        <select id="voltage">
+                            <option value="">Select Voltage</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firmwareVersion">Firmware Version</label>
+                        <input type="text" id="firmwareVersion" placeholder="e.g., v6.48.3">
+                    </div>
+                    <div class="form-group">
+                        <label for="ipAddress">IP Address *</label>
+                        <input type="text" id="ipAddress" placeholder="e.g., 10.10.14.30" pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="band">Frequency Band</label>
+                        <select id="band">
+                            <option value="">Select Band</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="channelWidth">Channel Width</label>
+                        <select id="channelWidth">
+                            <option value="">Select Channel Width</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency1">Frequency 1</label>
+                        <input type="text" id="frequency1" placeholder="e.g., 5180">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency2">Frequency 2</label>
+                        <input type="text" id="frequency2" placeholder="e.g., 5200">
+                    </div>
+                </div>
+
+                <!-- Row 5 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="frequency3">Frequency 3</label>
+                        <input type="text" id="frequency3" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label for="frequency4">Frequency 4</label>
+                        <input type="text" id="frequency4" placeholder="Optional">
+                    </div>
+                    <div class="form-group">
+                        <label for="ssid">SSID</label>
+                        <input type="text" id="ssid" placeholder="Network name">
+                    </div>
+                </div>
+
+                <!-- Row 6 -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="wirelessKey">Wireless Key</label>
+                        <input type="password" id="wirelessKey" placeholder="Network password">
+                    </div>
+                    <div class="form-group">
+                        <label for="radioName">Radio Name</label>
+                        <input type="text" id="radioName" placeholder="Enter radio name">
+                    </div>
+                    <div class="form-group">
+                        <label for="wirelessProtocol">Wireless Protocol</label>
+                        <select id="wirelessProtocol">
+                            <option value="">Select Protocol</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 7 - Multi-select fields -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataRates">Data Rates (Multi-select)</label>
+                        <div class="multi-select-container">
+                            <div class="multi-select-display" id="dataRatesDisplay" onclick="toggleMultiSelect('dataRates')" tabindex="0">
+                                <span style="color: #999;">Select data rates...</span>
+                            </div>
+                            <div class="multi-select-dropdown" id="dataRatesDropdown">
+                                <!-- Options will be generated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="htMcs">HT MCS (Multi-select)</label>
+                        <div class="multi-select-container">
+                            <div class="multi-select-display" id="htMcsDisplay" onclick="toggleMultiSelect('htMcs')" tabindex="0">
+                                <span style="color: #999;">Select HT MCS...</span>
+                            </div>
+                            <div class="multi-select-dropdown" id="htMcsDropdown">
+                                <!-- Options will be generated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn" onclick="closeModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveDevice()">Save Device</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>⚙️ Manage Dropdown Lists</h2>
+                <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="settings-tab active" onclick="switchSettingsTab('stations')">Station Names</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('modes')">Wireless Modes</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('brands')">Brands</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('voltages')">Voltages</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('bands')">Bands</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('channelWidths')">Channel Widths</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('protocols')">Protocols</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('dataRates')">Data Rates</button>
+                    <button class="settings-tab" onclick="switchSettingsTab('htMcs')">HT MCS</button>
+                </div>
+                
+                <div class="settings-content" id="settingsContent">
+                    <div class="list-manager">
+                        <div class="list-header">
+                            <h3 id="listTitle">Station Names</h3>
+                            <button class="btn btn-success btn-sm" onclick="addNewItem()">➕ Add New</button>
+                        </div>
+                        <div class="add-item-form" id="addItemForm" style="display: none;">
+                            <input type="text" id="newItemInput" placeholder="Enter new item">
+                            <button class="btn btn-primary btn-sm" onclick="saveNewItem()">Save</button>
+                            <button class="btn btn-sm" onclick="cancelAddItem()">Cancel</button>
+                        </div>
+                        <div class="list-items" id="listItems">
+                            <!-- Items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-primary" onclick="saveSettings()">Save All Changes</button>
+                    <button class="btn" onclick="closeSettingsModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Settings Modal Styles */
+        .settings-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .settings-tab {
+            padding: 8px 15px;
+            border: 1px solid var(--light);
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .settings-tab:hover {
+            background: var(--light);
+        }
+
+        .settings-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .list-manager {
+            background: white;
+            border: 1px solid var(--light);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .list-header h3 {
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .add-item-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 5px;
+        }
+
+        .add-item-form input {
+            flex: 1;
+            padding: 5px 10px;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+        }
+
+        .list-items {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 10px;
+            margin-bottom: 5px;
+            background: var(--light);
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .list-item:hover {
+            background: #e5e7eb;
+        }
+
+        .list-item.editing {
+            background: #fef3c7;
+        }
+
+        .list-item input {
+            flex: 1;
+            padding: 4px 8px;
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .list-item-text {
+            flex: 1;
+        }
+
+        .list-item-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .list-item-actions button {
+            padding: 4px 8px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-edit-item {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-delete-item {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-save-item {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-cancel-item {
+            background: var(--gray);
+            color: white;
+        }
+    </style>
+
+    <!-- Auto-save Indicator -->
+    <div class="auto-save-indicator" id="autoSaveIndicator">
+        <span>✅</span>
+        <span>Data saved locally</span>
     </div>
 
     <!-- Include XLSX library from CDN -->
@@ -613,46 +1196,346 @@
         const PASSWORD = 'admin123'; // CHANGE THIS PASSWORD!
         let networkData = [];
         let currentSort = { column: -1, direction: 'asc' };
+        let editingIndex = -1;
+        let currentSettingsTab = 'stations';
+        let editingItemIndex = -1;
 
-        // Sample data (will be replaced when Excel file is uploaded)
-        const sampleData = [
-            {
-                location: 'Aley',
-                device: 'RB OmniTIK APA-5HnD',
-                voltage: '12 V',
-                version: 'v6.39.2',
-                ip: '10.10.14.30',
-                band: '5GHz-A',
-                channelWidth: '20 MHz',
-                frequency: '5690',
-                ssid: 'aleynaderomnitik',
-                protocol: 'nv2 nstreme'
-            },
-            {
-                location: 'baalshmeih',
-                device: '3D78011BF5E0',
-                voltage: '-',
-                version: 'v6.48.3',
-                ip: '10.10.57.120',
-                band: '5GHz-A',
-                channelWidth: '40MHz Turbo',
-                frequency: '5180',
-                ssid: 'raselmaten2baalshmeih',
-                protocol: 'any'
-            },
-            {
-                location: 'bhamdoun',
-                device: '438002A37A75',
-                voltage: '24.4 V',
-                version: 'v6.48.3',
-                ip: '10.10.56.105',
-                band: '5GHz-A/N',
-                channelWidth: '20/40MHz eC',
-                frequency: '5280',
-                ssid: 'bhamdounsxt5.8',
-                protocol: 'nv2 nstreme'
+        // Local Storage Keys
+        const STORAGE_KEY = 'networkDashboardData';
+        const AUTH_KEY = 'networkDashboardAuth';
+        const DROPDOWNS_KEY = 'networkDashboardDropdowns';
+
+        // Default dropdown options
+        const defaultDropdowns = {
+            stations: ['Baalshmeih', 'Bhamdoun', 'Bostan', 'Btaaleen', 'Btater', 'Btekhnay', 'Chanay', 
+                      'Chbaneih', 'Deir el Harf', 'Far RaselMaten', 'GreenHills', 'Jowar el Howz', 
+                      'Kfarsilwan', 'khraybeih', 'kobbeih - Bassam', 'kobbeih - Hani', 'Badghan', 
+                      'Mansoreih', 'Msakabeih', 'Naas', 'Ras el Maten', 'Sakiat el Misk', 
+                      'Sawfar', 'Shmeis', 'Souk El Ghareb', 'Tatiour', 'Other'],
+            modes: ['Access Point', 'Bridge', 'Switch'],
+            brands: ['Mikrotik', 'Mimosa', 'Cambuim'],
+            voltages: ['12V', '24V', '48V', '56V', '220V'],
+            bands: ['5GHz-A', '5GHz-A/N', '5GHz-A/N/AC', '5GHs-only-N', '5GHz', '6GHz'],
+            channelWidths: ['10MHz', '20MHz', '40MHz', '40MHz Turbo', '80MHz', '160MHz', 
+                           '20/40MHz eC', '20/40MHz Ce', '20/40MHz XX', 
+                           '20/40/80MHz Ceee', '20/40/80MHz eCee', '20/40/80MHz eeCe', 
+                           '20/40/80MHz eeeC', '20/40/80MHz XXXX'],
+            protocols: ['802.11', 'nstreme', 'nv2', 'nv2 nstreme', 'any'],
+            dataRates: ['6', '9', '12', '18', '24', '36', '48', '54', 'default'],
+            htMcs: ['MCS0', 'MCS1', 'MCS2', 'MCS3', 'MCS4', 'MCS5', 'MCS6', 'MCS7', 'MCS8', 
+                   'MCS9', 'MCS10', 'MCS11', 'MCS12', 'MCS13', 'MCS14', 'MCS15', 'MCS16', 
+                   'MCS17', 'MCS18', 'MCS19', 'MCS20', 'MCS21', 'MCS22', 'MCS23', '-']
+        };
+
+        let dropdownOptions = {};
+
+        // Load dropdown options from localStorage or use defaults
+        function loadDropdownOptions() {
+            const stored = localStorage.getItem(DROPDOWNS_KEY);
+            if (stored) {
+                try {
+                    dropdownOptions = JSON.parse(stored);
+                } catch (e) {
+                    dropdownOptions = {...defaultDropdowns};
+                }
+            } else {
+                dropdownOptions = {...defaultDropdowns};
             }
-        ];
+            updateAllDropdowns();
+        }
+
+        // Save dropdown options to localStorage
+        function saveDropdownOptions() {
+            localStorage.setItem(DROPDOWNS_KEY, JSON.stringify(dropdownOptions));
+        }
+
+        // Update all dropdown selects in the device modal
+        function updateAllDropdowns() {
+            // Station Names
+            const stationSelect = document.getElementById('stationName');
+            if (stationSelect) {
+                const currentValue = stationSelect.value;
+                stationSelect.innerHTML = '<option value="">Select Station</option>';
+                dropdownOptions.stations.forEach(station => {
+                    stationSelect.innerHTML += `<option value="${station}">${station}</option>`;
+                });
+                stationSelect.value = currentValue;
+            }
+
+            // Wireless Modes
+            const modeSelect = document.getElementById('wirelessMode');
+            if (modeSelect) {
+                const currentValue = modeSelect.value;
+                modeSelect.innerHTML = '<option value="">Select Mode</option>';
+                dropdownOptions.modes.forEach(mode => {
+                    modeSelect.innerHTML += `<option value="${mode}">${mode}</option>`;
+                });
+                modeSelect.value = currentValue;
+            }
+
+            // Brands
+            const brandSelect = document.getElementById('brand');
+            if (brandSelect) {
+                const currentValue = brandSelect.value;
+                brandSelect.innerHTML = '<option value="">Select Brand</option>';
+                dropdownOptions.brands.forEach(brand => {
+                    brandSelect.innerHTML += `<option value="${brand}">${brand}</option>`;
+                });
+                brandSelect.value = currentValue;
+            }
+
+            // Voltages
+            const voltageSelect = document.getElementById('voltage');
+            if (voltageSelect) {
+                const currentValue = voltageSelect.value;
+                voltageSelect.innerHTML = '<option value="">Select Voltage</option>';
+                dropdownOptions.voltages.forEach(voltage => {
+                    voltageSelect.innerHTML += `<option value="${voltage}">${voltage}</option>`;
+                });
+                voltageSelect.value = currentValue;
+            }
+
+            // Bands
+            const bandSelect = document.getElementById('band');
+            if (bandSelect) {
+                const currentValue = bandSelect.value;
+                bandSelect.innerHTML = '<option value="">Select Band</option>';
+                dropdownOptions.bands.forEach(band => {
+                    bandSelect.innerHTML += `<option value="${band}">${band}</option>`;
+                });
+                bandSelect.value = currentValue;
+            }
+
+            // Channel Widths
+            const channelSelect = document.getElementById('channelWidth');
+            if (channelSelect) {
+                const currentValue = channelSelect.value;
+                channelSelect.innerHTML = '<option value="">Select Channel Width</option>';
+                dropdownOptions.channelWidths.forEach(width => {
+                    channelSelect.innerHTML += `<option value="${width}">${width}</option>`;
+                });
+                channelSelect.value = currentValue;
+            }
+
+            // Protocols
+            const protocolSelect = document.getElementById('wirelessProtocol');
+            if (protocolSelect) {
+                const currentValue = protocolSelect.value;
+                protocolSelect.innerHTML = '<option value="">Select Protocol</option>';
+                dropdownOptions.protocols.forEach(protocol => {
+                    protocolSelect.innerHTML += `<option value="${protocol}">${protocol}</option>`;
+                });
+                protocolSelect.value = currentValue;
+            }
+
+            // Update multi-selects
+            updateDataRatesOptions();
+            updateHtMcsOptions();
+        }
+
+        // Update Data Rates multi-select options
+        function updateDataRatesOptions() {
+            const dropdown = document.getElementById('dataRatesDropdown');
+            if (dropdown) {
+                let html = '';
+                dropdownOptions.dataRates.forEach(rate => {
+                    html += `<div class="multi-select-option">
+                        <input type="checkbox" value="${rate}" onchange="updateMultiSelect('dataRates')"> ${rate}
+                    </div>`;
+                });
+                dropdown.innerHTML = html;
+            }
+        }
+
+        // Update HT MCS multi-select options
+        function updateHtMcsOptions() {
+            const dropdown = document.getElementById('htMcsDropdown');
+            if (dropdown) {
+                let html = '';
+                dropdownOptions.htMcs.forEach(mcs => {
+                    html += `<div class="multi-select-option">
+                        <input type="checkbox" value="${mcs}" onchange="updateMultiSelect('htMcs')"> ${mcs}
+                    </div>`;
+                });
+                dropdown.innerHTML = html;
+            }
+        }
+
+        // Settings Modal Functions
+        function showSettingsModal() {
+            document.getElementById('settingsModal').classList.add('show');
+            switchSettingsTab('stations');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.remove('show');
+            updateAllDropdowns();
+            populateFilters();
+        }
+
+        function switchSettingsTab(tab) {
+            currentSettingsTab = tab;
+            editingItemIndex = -1;
+            
+            // Update active tab
+            const tabs = document.querySelectorAll('.settings-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update title
+            const titles = {
+                stations: 'Station Names',
+                modes: 'Wireless Modes',
+                brands: 'Brands',
+                voltages: 'Voltages',
+                bands: 'Frequency Bands',
+                channelWidths: 'Channel Widths',
+                protocols: 'Wireless Protocols',
+                dataRates: 'Data Rates',
+                htMcs: 'HT MCS Values'
+            };
+            document.getElementById('listTitle').textContent = titles[tab];
+            
+            // Hide add form
+            document.getElementById('addItemForm').style.display = 'none';
+            
+            // Load items
+            loadListItems();
+        }
+
+        function loadListItems() {
+            const container = document.getElementById('listItems');
+            const items = dropdownOptions[currentSettingsTab] || [];
+            
+            let html = '';
+            items.forEach((item, index) => {
+                html += `
+                    <div class="list-item" id="item-${index}">
+                        <span class="list-item-text">${item}</span>
+                        <div class="list-item-actions">
+                            <button class="btn-edit-item" onclick="editItem(${index})">✏️</button>
+                            <button class="btn-delete-item" onclick="deleteItem(${index})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || '<p style="color: #999; text-align: center;">No items in this list</p>';
+        }
+
+        function addNewItem() {
+            document.getElementById('addItemForm').style.display = 'flex';
+            document.getElementById('newItemInput').value = '';
+            document.getElementById('newItemInput').focus();
+        }
+
+        function cancelAddItem() {
+            document.getElementById('addItemForm').style.display = 'none';
+            document.getElementById('newItemInput').value = '';
+        }
+
+        function saveNewItem() {
+            const input = document.getElementById('newItemInput');
+            const value = input.value.trim();
+            
+            if (!value) {
+                alert('Please enter a value');
+                return;
+            }
+            
+            if (!dropdownOptions[currentSettingsTab]) {
+                dropdownOptions[currentSettingsTab] = [];
+            }
+            
+            if (dropdownOptions[currentSettingsTab].includes(value)) {
+                alert('This item already exists');
+                return;
+            }
+            
+            dropdownOptions[currentSettingsTab].push(value);
+            dropdownOptions[currentSettingsTab].sort();
+            
+            cancelAddItem();
+            loadListItems();
+        }
+
+        function editItem(index) {
+            if (editingItemIndex !== -1 && editingItemIndex !== index) {
+                cancelEditItem(editingItemIndex);
+            }
+            
+            editingItemIndex = index;
+            const item = dropdownOptions[currentSettingsTab][index];
+            const itemDiv = document.getElementById(`item-${index}`);
+            
+            itemDiv.classList.add('editing');
+            itemDiv.innerHTML = `
+                <input type="text" value="${item}" id="edit-input-${index}">
+                <div class="list-item-actions">
+                    <button class="btn-save-item" onclick="saveEditItem(${index})">💾</button>
+                    <button class="btn-cancel-item" onclick="cancelEditItem(${index})">❌</button>
+                </div>
+            `;
+            
+            document.getElementById(`edit-input-${index}`).focus();
+        }
+
+        function saveEditItem(index) {
+            const input = document.getElementById(`edit-input-${index}`);
+            const value = input.value.trim();
+            
+            if (!value) {
+                alert('Please enter a value');
+                return;
+            }
+            
+            const items = dropdownOptions[currentSettingsTab];
+            if (items.includes(value) && items[index] !== value) {
+                alert('This item already exists');
+                return;
+            }
+            
+            dropdownOptions[currentSettingsTab][index] = value;
+            dropdownOptions[currentSettingsTab].sort();
+            
+            editingItemIndex = -1;
+            loadListItems();
+        }
+
+        function cancelEditItem(index) {
+            editingItemIndex = -1;
+            loadListItems();
+        }
+
+        function deleteItem(index) {
+            const item = dropdownOptions[currentSettingsTab][index];
+            if (confirm(`Are you sure you want to delete "${item}"?`)) {
+                dropdownOptions[currentSettingsTab].splice(index, 1);
+                loadListItems();
+            }
+        }
+
+        function saveSettings() {
+            saveDropdownOptions();
+            alert('Settings saved successfully!');
+            closeSettingsModal();
+        }
+
+        // Generate HT MCS options dynamically (removed as we now manage them in settings)
+        function generateMcsOptions() {
+            // Now handled by updateHtMcsOptions()
+        }
+
+        // Check if already authenticated
+        window.onload = function() {
+            loadDropdownOptions();
+            if (localStorage.getItem(AUTH_KEY) === 'true') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                loadDataFromStorage();
+                initializeDashboard();
+            }
+        };
 
         // Authentication
         function login() {
@@ -660,8 +1543,10 @@
             const errorMsg = document.getElementById('errorMessage');
             
             if (password === PASSWORD) {
+                localStorage.setItem(AUTH_KEY, 'true');
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('dashboard').classList.add('active');
+                loadDataFromStorage();
                 initializeDashboard();
             } else {
                 errorMsg.textContent = 'Incorrect password. Please try again.';
@@ -672,6 +1557,7 @@
 
         function logout() {
             if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem(AUTH_KEY);
                 document.getElementById('dashboard').classList.remove('active');
                 document.getElementById('loginScreen').style.display = 'flex';
                 document.getElementById('passwordInput').value = '';
@@ -686,14 +1572,302 @@
             }
         });
 
+        // Multi-select functionality
+        function toggleMultiSelect(fieldName) {
+            const dropdown = document.getElementById(fieldName + 'Dropdown');
+            dropdown.classList.toggle('show');
+            
+            // Close other dropdowns
+            if (fieldName !== 'dataRates') {
+                document.getElementById('dataRatesDropdown').classList.remove('show');
+            }
+            if (fieldName !== 'htMcs') {
+                document.getElementById('htMcsDropdown').classList.remove('show');
+            }
+        }
+
+        function updateMultiSelect(fieldName) {
+            const dropdown = document.getElementById(fieldName + 'Dropdown');
+            const display = document.getElementById(fieldName + 'Display');
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            
+            if (checkboxes.length === 0) {
+                display.innerHTML = '<span style="color: #999;">Select ' + 
+                    (fieldName === 'dataRates' ? 'data rates' : 'HT MCS') + '...</span>';
+            } else {
+                const values = Array.from(checkboxes).map(cb => cb.value);
+                display.innerHTML = values.map(v => 
+                    `<span class="selected-item">${v} <span class="remove" onclick="removeMultiSelectItem('${fieldName}', '${v}')">×</span></span>`
+                ).join('');
+            }
+        }
+
+        function removeMultiSelectItem(fieldName, value) {
+            const dropdown = document.getElementById(fieldName + 'Dropdown');
+            const checkbox = dropdown.querySelector(`input[value="${value}"]`);
+            if (checkbox) {
+                checkbox.checked = false;
+                updateMultiSelect(fieldName);
+            }
+            event.stopPropagation(); // Prevent dropdown from toggling
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.multi-select-container')) {
+                document.getElementById('dataRatesDropdown').classList.remove('show');
+                document.getElementById('htMcsDropdown').classList.remove('show');
+            }
+        });
+
+        // Local Storage Functions
+        function saveDataToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(networkData));
+            showAutoSaveIndicator();
+        }
+
+        function loadDataFromStorage() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    networkData = JSON.parse(stored);
+                } catch (e) {
+                    networkData = [];
+                }
+            }
+        }
+
+        function showAutoSaveIndicator() {
+            const indicator = document.getElementById('autoSaveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
         // Initialize Dashboard
         function initializeDashboard() {
-            // Load sample data initially
-            networkData = [...sampleData];
+            if (networkData.length === 0) {
+                // Load with sample data if no data exists
+                networkData = [
+                    {
+                        stationName: 'Sample Station',
+                        wirelessMode: 'Access Point',
+                        brand: 'Mikrotik',
+                        description: 'Sample Device',
+                        macAddress: '00:11:22:33:44:55',
+                        voltage: '24V',
+                        firmwareVersion: 'v6.48.3',
+                        ipAddress: '192.168.1.1',
+                        band: '5GHz-A',
+                        channelWidth: '20MHz',
+                        frequency1: '5180',
+                        frequency2: '',
+                        frequency3: '',
+                        frequency4: '',
+                        ssid: 'sample_network',
+                        wirelessKey: '',
+                        radioName: '',
+                        dataRates: ['default'],
+                        htMcs: ['MCS0'],
+                        wirelessProtocol: 'nv2'
+                    }
+                ];
+            }
             renderTable();
             updateStats();
             populateFilters();
             updateLastUpdateTime();
+        }
+
+        // Modal Functions
+        function showAddModal() {
+            editingIndex = -1;
+            document.getElementById('modalTitle').textContent = 'Add New Device';
+            clearModalForm();
+            document.getElementById('deviceModal').classList.add('show');
+        }
+
+        function showEditModal(index) {
+            editingIndex = index;
+            document.getElementById('modalTitle').textContent = 'Edit Device';
+            const device = networkData[index];
+            
+            // Populate form with existing data
+            document.getElementById('stationName').value = device.stationName || '';
+            document.getElementById('wirelessMode').value = device.wirelessMode || '';
+            document.getElementById('brand').value = device.brand || '';
+            document.getElementById('description').value = device.description || '';
+            document.getElementById('macAddress').value = device.macAddress || '';
+            document.getElementById('voltage').value = device.voltage || '';
+            document.getElementById('firmwareVersion').value = device.firmwareVersion || '';
+            document.getElementById('ipAddress').value = device.ipAddress || '';
+            document.getElementById('band').value = device.band || '';
+            document.getElementById('channelWidth').value = device.channelWidth || '';
+            document.getElementById('frequency1').value = device.frequency1 || '';
+            document.getElementById('frequency2').value = device.frequency2 || '';
+            document.getElementById('frequency3').value = device.frequency3 || '';
+            document.getElementById('frequency4').value = device.frequency4 || '';
+            document.getElementById('ssid').value = device.ssid || '';
+            document.getElementById('wirelessKey').value = device.wirelessKey || '';
+            document.getElementById('radioName').value = device.radioName || '';
+            document.getElementById('wirelessProtocol').value = device.wirelessProtocol || '';
+            
+            // Set multi-select values
+            setMultiSelectValues('dataRates', device.dataRates || []);
+            setMultiSelectValues('htMcs', device.htMcs || []);
+            
+            document.getElementById('deviceModal').classList.add('show');
+        }
+
+        function setMultiSelectValues(fieldName, values) {
+            const dropdown = document.getElementById(fieldName + 'Dropdown');
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+            
+            checkboxes.forEach(cb => {
+                cb.checked = values.includes(cb.value);
+            });
+            
+            updateMultiSelect(fieldName);
+        }
+
+        function getMultiSelectValues(fieldName) {
+            const dropdown = document.getElementById(fieldName + 'Dropdown');
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function closeModal() {
+            document.getElementById('deviceModal').classList.remove('show');
+            clearModalForm();
+        }
+
+        function clearModalForm() {
+            document.getElementById('stationName').value = '';
+            document.getElementById('wirelessMode').value = '';
+            document.getElementById('brand').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('macAddress').value = '';
+            document.getElementById('voltage').value = '';
+            document.getElementById('firmwareVersion').value = '';
+            document.getElementById('ipAddress').value = '';
+            document.getElementById('band').value = '';
+            document.getElementById('channelWidth').value = '';
+            document.getElementById('frequency1').value = '';
+            document.getElementById('frequency2').value = '';
+            document.getElementById('frequency3').value = '';
+            document.getElementById('frequency4').value = '';
+            document.getElementById('ssid').value = '';
+            document.getElementById('wirelessKey').value = '';
+            document.getElementById('radioName').value = '';
+            document.getElementById('wirelessProtocol').value = '';
+            
+            // Clear multi-selects
+            setMultiSelectValues('dataRates', []);
+            setMultiSelectValues('htMcs', []);
+        }
+
+        // Save Device (Add or Edit)
+        function saveDevice() {
+            const stationName = document.getElementById('stationName').value.trim();
+            const ipAddress = document.getElementById('ipAddress').value.trim();
+            
+            // Basic validation
+            if (!stationName || !ipAddress) {
+                alert('Station Name and IP Address are required fields!');
+                return;
+            }
+            
+            // Validate IP format
+            const ipPattern = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/;
+            if (!ipPattern.test(ipAddress)) {
+                alert('Please enter a valid IP address format (e.g., 192.168.1.1)');
+                return;
+            }
+            
+            // Check for duplicate IP (except when editing same device)
+            const duplicateIndex = networkData.findIndex(d => d.ipAddress === ipAddress);
+            if (duplicateIndex !== -1 && duplicateIndex !== editingIndex) {
+                if (!confirm(`Warning: IP address ${ipAddress} already exists for device at ${networkData[duplicateIndex].stationName}. Do you want to continue?`)) {
+                    return;
+                }
+            }
+            
+            const deviceData = {
+                stationName: stationName,
+                wirelessMode: document.getElementById('wirelessMode').value || '-',
+                brand: document.getElementById('brand').value || '-',
+                description: document.getElementById('description').value.trim() || '-',
+                macAddress: document.getElementById('macAddress').value.trim() || '-',
+                voltage: document.getElementById('voltage').value || '-',
+                firmwareVersion: document.getElementById('firmwareVersion').value.trim() || '-',
+                ipAddress: ipAddress,
+                band: document.getElementById('band').value || '-',
+                channelWidth: document.getElementById('channelWidth').value || '-',
+                frequency1: document.getElementById('frequency1').value.trim() || '',
+                frequency2: document.getElementById('frequency2').value.trim() || '',
+                frequency3: document.getElementById('frequency3').value.trim() || '',
+                frequency4: document.getElementById('frequency4').value.trim() || '',
+                ssid: document.getElementById('ssid').value.trim() || '-',
+                wirelessKey: document.getElementById('wirelessKey').value.trim() || '',
+                radioName: document.getElementById('radioName').value.trim() || '-',
+                dataRates: getMultiSelectValues('dataRates'),
+                htMcs: getMultiSelectValues('htMcs'),
+                wirelessProtocol: document.getElementById('wirelessProtocol').value || '-'
+            };
+            
+            if (editingIndex === -1) {
+                // Add new device
+                networkData.push(deviceData);
+            } else {
+                // Update existing device
+                networkData[editingIndex] = deviceData;
+            }
+            
+            // Save and refresh
+            saveDataToStorage();
+            renderTable();
+            updateStats();
+            populateFilters();
+            updateLastUpdateTime();
+            closeModal();
+        }
+
+        // Delete Device
+        function deleteDevice(index) {
+            const device = networkData[index];
+            if (confirm(`Are you sure you want to delete the device at ${device.stationName} with IP ${device.ipAddress}?`)) {
+                networkData.splice(index, 1);
+                saveDataToStorage();
+                renderTable();
+                updateStats();
+                populateFilters();
+                updateLastUpdateTime();
+            }
+        }
+
+        // Clear All Data
+        function clearAllData() {
+            if (confirm('⚠️ WARNING: This will delete ALL devices from the dashboard. Are you sure?')) {
+                if (confirm('This action cannot be undone. Do you want to export a backup first?')) {
+                    exportToJSON();
+                    setTimeout(() => {
+                        if (confirm('Backup downloaded. Proceed with clearing all data?')) {
+                            networkData = [];
+                            saveDataToStorage();
+                            renderTable();
+                            updateStats();
+                            populateFilters();
+                        }
+                    }, 500);
+                } else {
+                    networkData = [];
+                    saveDataToStorage();
+                    renderTable();
+                    updateStats();
+                    populateFilters();
+                }
+            }
         }
 
         // File Upload Handling
@@ -710,95 +1884,180 @@
                     const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
                     const jsonData = XLSX.utils.sheet_to_json(firstSheet, {header: 1});
                     
-                    // Parse the data (assuming no headers in first row)
-                    networkData = [];
-                    for (let i = 0; i < jsonData.length; i++) {
+                    // Parse the data
+                    const importedData = [];
+                    let skippedCount = 0;
+                    
+                    // Skip header row (index 0) and process data
+                    for (let i = 1; i < jsonData.length; i++) {
                         const row = jsonData[i];
-                        if (row[4]) { // Only process rows with IP addresses
-                            networkData.push({
-                                location: row[0] || '',
-                                device: row[1] || '',
-                                voltage: row[2] || '',
-                                version: row[3] || '',
-                                ip: row[4] || '',
-                                band: row[5] || '',
-                                channelWidth: row[6] || '',
-                                frequency: row[7] || '',
-                                ssid: row[11] || '',
-                                protocol: row[15] || ''
+                        if (row[5]) { // Only process rows with IP addresses (column 5)
+                            // Parse multi-value fields for Data Rates and HT MCS
+                            let dataRates = [];
+                            if (row[15]) {
+                                dataRates = String(row[15]).split(',').map(r => r.trim()).filter(r => r);
+                            }
+                            
+                            let htMcs = [];
+                            if (row[16]) {
+                                const mcsValues = String(row[16]).split(',').map(m => m.trim()).filter(m => m);
+                                htMcs = mcsValues.map(m => {
+                                    if (m === '-') return '-';
+                                    if (m.toUpperCase().startsWith('MCS')) return m.toUpperCase();
+                                    if (!isNaN(m)) return `MCS${m}`;
+                                    return m.toUpperCase(); // Handle cases like "none", "default"
+                                });
+                            }
+                            
+                            // Capitalize first letter of station name
+                            let stationName = '';
+                            if (row[0]) {
+                                const name = String(row[0]).toLowerCase();
+                                // Handle special cases like "Deir el Harf" -> keep multiple words
+                                stationName = name.split(' ').map(word => 
+                                    word.charAt(0).toUpperCase() + word.slice(1)
+                                ).join(' ');
+                            }
+                            
+                            // Validate and clean data
+                            const device = {
+                                stationName: stationName,
+                                wirelessMode: row[1] || '',
+                                brand: '', // Brand column is not in the Excel (Description maps to brand if needed)
+                                description: row[2] || '',
+                                macAddress: '', // Not in the Excel file
+                                voltage: row[3] || '',
+                                firmwareVersion: row[4] || '',
+                                ipAddress: row[5] || '',
+                                band: row[6] || '',
+                                channelWidth: row[7] || '',
+                                frequency1: row[8] ? String(row[8]) : '',
+                                frequency2: row[9] ? String(row[9]) : '',
+                                frequency3: row[10] ? String(row[10]) : '',
+                                frequency4: row[11] ? String(row[11]) : '',
+                                ssid: row[12] || '',
+                                wirelessKey: row[13] || '',
+                                radioName: row[14] || '',
+                                dataRates: dataRates,
+                                htMcs: htMcs,
+                                wirelessProtocol: row[17] || ''
+                            };
+                            
+                            // Add device to imported data
+                            importedData.push(device);
+                            
+                            // Dynamically add new dropdown options if they don't exist
+                            if (stationName && !dropdownOptions.stations.includes(stationName)) {
+                                dropdownOptions.stations.push(stationName);
+                                dropdownOptions.stations.sort();
+                            }
+                            if (row[1] && !dropdownOptions.modes.includes(row[1])) {
+                                dropdownOptions.modes.push(row[1]);
+                                dropdownOptions.modes.sort();
+                            }
+                            if (row[3] && !dropdownOptions.voltages.includes(row[3])) {
+                                dropdownOptions.voltages.push(row[3]);
+                                dropdownOptions.voltages.sort();
+                            }
+                            if (row[6] && !dropdownOptions.bands.includes(row[6])) {
+                                dropdownOptions.bands.push(row[6]);
+                                dropdownOptions.bands.sort();
+                            }
+                            if (row[7] && !dropdownOptions.channelWidths.includes(row[7])) {
+                                dropdownOptions.channelWidths.push(row[7]);
+                                dropdownOptions.channelWidths.sort();
+                            }
+                            if (row[17] && !dropdownOptions.protocols.includes(row[17])) {
+                                dropdownOptions.protocols.push(row[17]);
+                                dropdownOptions.protocols.sort();
+                            }
+                            
+                            // Add new data rate values
+                            dataRates.forEach(rate => {
+                                if (rate && !dropdownOptions.dataRates.includes(rate)) {
+                                    dropdownOptions.dataRates.push(rate);
+                                }
                             });
+                            
+                            // Add new HT MCS values
+                            htMcs.forEach(mcs => {
+                                if (mcs && !dropdownOptions.htMcs.includes(mcs)) {
+                                    dropdownOptions.htMcs.push(mcs);
+                                }
+                            });
+                        } else {
+                            skippedCount++;
                         }
                     }
                     
-                    // Update display
-                    renderTable();
-                    updateStats();
-                    populateFilters();
-                    updateLastUpdateTime();
-                    
-                    // Update upload box
-                    document.getElementById('uploadBox').innerHTML = `
-                        <div style="color: var(--success);">
-                            ✅ File loaded successfully!<br>
-                            <strong>${file.name}</strong><br>
-                            ${networkData.length} devices imported
-                        </div>
-                    `;
-                    
-                    setTimeout(() => {
-                        document.getElementById('uploadBox').innerHTML = `
-                            <div class="upload-icon">📁</div>
-                            <h3>Drop Excel file here or click to browse</h3>
-                            <p style="color: var(--gray); margin-top: 10px;">Supports .xlsx and .xls files</p>
-                            <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls" onchange="handleFile(this.files[0])">
-                        `;
-                    }, 3000);
+                    if (importedData.length > 0) {
+                        // Save updated dropdown options
+                        saveDropdownOptions();
+                        updateAllDropdowns();
+                        
+                        if (confirm(`Found ${importedData.length} devices. ${skippedCount > 0 ? `(${skippedCount} rows skipped due to missing IP address)` : ''}\n\nDo you want to:\n\n[OK] = Replace all existing data\n[Cancel] = Add to existing data`)) {
+                            networkData = importedData;
+                        } else {
+                            networkData = [...networkData, ...importedData];
+                        }
+                        
+                        saveDataToStorage();
+                        renderTable();
+                        updateStats();
+                        populateFilters();
+                        updateLastUpdateTime();
+                        
+                        alert(`✅ Successfully imported ${importedData.length} devices!${skippedCount > 0 ? `\n⚠️ ${skippedCount} rows were skipped due to missing data.` : ''}`);
+                    } else {
+                        alert('No valid data found in the file. Please check that the file contains IP addresses.');
+                    }
                     
                 } catch (error) {
                     alert('Error reading file: ' + error.message);
+                    console.error('Import error:', error);
                 }
             };
             reader.readAsArrayBuffer(file);
         }
-
-        // Drag and Drop
-        const uploadBox = document.getElementById('uploadBox');
-        uploadBox.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadBox.classList.add('dragover');
-        });
-
-        uploadBox.addEventListener('dragleave', () => {
-            uploadBox.classList.remove('dragover');
-        });
-
-        uploadBox.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadBox.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            if (file && (file.name.endsWith('.xlsx') || file.name.endsWith('.xls'))) {
-                handleFile(file);
-            }
-        });
 
         // Render Table
         function renderTable(data = networkData) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
             
-            data.forEach(row => {
+            data.forEach((row, index) => {
+                const frequencies = [row.frequency1, row.frequency2, row.frequency3, row.frequency4]
+                    .filter(f => f && f !== '')
+                    .join(', ') || '-';
+                
+                const dataRatesDisplay = row.dataRates && row.dataRates.length > 0 ? 
+                    `<div class="multi-value">${row.dataRates.map(r => `<span>${r}</span>`).join('')}</div>` : '-';
+                
+                const htMcsDisplay = row.htMcs && row.htMcs.length > 0 ? 
+                    `<div class="multi-value">${row.htMcs.map(m => `<span>${m}</span>`).join('')}</div>` : '-';
+                
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>${row.location}</td>
-                    <td>${row.device}</td>
-                    <td>${row.voltage}</td>
-                    <td>${row.version}</td>
-                    <td><span class="ip-badge">${row.ip}</span></td>
-                    <td>${row.band}</td>
-                    <td>${row.channelWidth}</td>
-                    <td>${row.frequency}</td>
-                    <td>${row.ssid}</td>
-                    <td>${row.protocol}</td>
+                    <td>${row.stationName}</td>
+                    <td>${row.wirelessMode || '-'}</td>
+                    <td>${row.brand || '-'}</td>
+                    <td>${row.description || '-'}</td>
+                    <td>${row.macAddress || '-'}</td>
+                    <td>${row.voltage || '-'}</td>
+                    <td>${row.firmwareVersion || '-'}</td>
+                    <td><span class="ip-badge">${row.ipAddress}</span></td>
+                    <td>${row.band || '-'}</td>
+                    <td>${row.channelWidth || '-'}</td>
+                    <td>${frequencies}</td>
+                    <td>${row.ssid || '-'}</td>
+                    <td>${row.radioName || '-'}</td>
+                    <td>${dataRatesDisplay}</td>
+                    <td>${htMcsDisplay}</td>
+                    <td>${row.wirelessProtocol || '-'}</td>
+                    <td class="actions-cell">
+                        <button class="btn btn-sm btn-edit" onclick="showEditModal(${index})">✏️</button>
+                        <button class="btn btn-sm btn-delete" onclick="deleteDevice(${index})">🗑️</button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -808,15 +2067,15 @@
         function updateStats() {
             document.getElementById('totalDevices').textContent = networkData.length;
             
-            const uniqueIPs = new Set(networkData.map(d => d.ip));
+            const uniqueIPs = new Set(networkData.map(d => d.ipAddress));
             document.getElementById('uniqueIPs').textContent = uniqueIPs.size;
             
-            const locations = new Set(networkData.map(d => d.location));
-            document.getElementById('totalLocations').textContent = locations.size;
+            const stations = new Set(networkData.map(d => d.stationName));
+            document.getElementById('totalStations').textContent = stations.size;
             
             const ipCounts = {};
             networkData.forEach(d => {
-                ipCounts[d.ip] = (ipCounts[d.ip] || 0) + 1;
+                ipCounts[d.ipAddress] = (ipCounts[d.ipAddress] || 0) + 1;
             });
             const duplicates = Object.values(ipCounts).filter(count => count > 1).length;
             document.getElementById('duplicateIPs').textContent = duplicates;
@@ -824,60 +2083,106 @@
 
         // Populate Filters
         function populateFilters() {
-            // Location filter
-            const locations = [...new Set(networkData.map(d => d.location))].sort();
-            const locationFilter = document.getElementById('locationFilter');
-            locationFilter.innerHTML = '<option value="">All Locations</option>';
-            locations.forEach(loc => {
-                locationFilter.innerHTML += `<option value="${loc}">${loc}</option>`;
+            // Station filter
+            const stations = [...new Set(networkData.map(d => d.stationName))].sort();
+            const stationFilter = document.getElementById('stationFilter');
+            stationFilter.innerHTML = '<option value="">All Stations</option>';
+            stations.forEach(station => {
+                stationFilter.innerHTML += `<option value="${station}">${station}</option>`;
             });
             
             // Band filter
-            const bands = [...new Set(networkData.map(d => d.band))].sort();
+            const bands = [...new Set(networkData.map(d => d.band))].filter(b => b && b !== '-').sort();
             const bandFilter = document.getElementById('bandFilter');
             bandFilter.innerHTML = '<option value="">All Bands</option>';
             bands.forEach(band => {
                 bandFilter.innerHTML += `<option value="${band}">${band}</option>`;
             });
             
-            // Version filter
-            const versions = [...new Set(networkData.map(d => d.version))].sort();
-            const versionFilter = document.getElementById('versionFilter');
-            versionFilter.innerHTML = '<option value="">All Versions</option>';
-            versions.forEach(ver => {
-                versionFilter.innerHTML += `<option value="${ver}">${ver}</option>`;
+            // Mode filter
+            const modes = [...new Set(networkData.map(d => d.wirelessMode))].filter(m => m && m !== '-').sort();
+            const modeFilter = document.getElementById('modeFilter');
+            modeFilter.innerHTML = '<option value="">All Modes</option>';
+            modes.forEach(mode => {
+                modeFilter.innerHTML += `<option value="${mode}">${mode}</option>`;
             });
         }
 
         // Filter Table
         function filterTable() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const locationFilter = document.getElementById('locationFilter').value;
+            const stationFilter = document.getElementById('stationFilter').value;
             const bandFilter = document.getElementById('bandFilter').value;
-            const versionFilter = document.getElementById('versionFilter').value;
+            const modeFilter = document.getElementById('modeFilter').value;
             
-            const filteredData = networkData.filter(row => {
+            const filteredData = networkData.filter((row, index) => {
+                // Store original index for edit/delete functions
+                row._originalIndex = index;
+                
                 const matchesSearch = !searchTerm || 
-                    Object.values(row).some(val => 
-                        String(val).toLowerCase().includes(searchTerm)
-                    );
+                    Object.values(row).some(val => {
+                        if (Array.isArray(val)) {
+                            return val.some(v => String(v).toLowerCase().includes(searchTerm));
+                        }
+                        return String(val).toLowerCase().includes(searchTerm);
+                    });
                 
-                const matchesLocation = !locationFilter || row.location === locationFilter;
+                const matchesStation = !stationFilter || row.stationName === stationFilter;
                 const matchesBand = !bandFilter || row.band === bandFilter;
-                const matchesVersion = !versionFilter || row.version === versionFilter;
+                const matchesMode = !modeFilter || row.wirelessMode === modeFilter;
                 
-                return matchesSearch && matchesLocation && matchesBand && matchesVersion;
+                return matchesSearch && matchesStation && matchesBand && matchesMode;
             });
             
-            renderTable(filteredData);
+            // Render filtered data with correct indices
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            filteredData.forEach((row) => {
+                const originalIndex = row._originalIndex;
+                const frequencies = [row.frequency1, row.frequency2, row.frequency3, row.frequency4]
+                    .filter(f => f && f !== '')
+                    .join(', ') || '-';
+                
+                const dataRatesDisplay = row.dataRates && row.dataRates.length > 0 ? 
+                    `<div class="multi-value">${row.dataRates.map(r => `<span>${r}</span>`).join('')}</div>` : '-';
+                
+                const htMcsDisplay = row.htMcs && row.htMcs.length > 0 ? 
+                    `<div class="multi-value">${row.htMcs.map(m => `<span>${m}</span>`).join('')}</div>` : '-';
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.stationName}</td>
+                    <td>${row.wirelessMode || '-'}</td>
+                    <td>${row.brand || '-'}</td>
+                    <td>${row.description || '-'}</td>
+                    <td>${row.macAddress || '-'}</td>
+                    <td>${row.voltage || '-'}</td>
+                    <td>${row.firmwareVersion || '-'}</td>
+                    <td><span class="ip-badge">${row.ipAddress}</span></td>
+                    <td>${row.band || '-'}</td>
+                    <td>${row.channelWidth || '-'}</td>
+                    <td>${frequencies}</td>
+                    <td>${row.ssid || '-'}</td>
+                    <td>${row.radioName || '-'}</td>
+                    <td>${dataRatesDisplay}</td>
+                    <td>${htMcsDisplay}</td>
+                    <td>${row.wirelessProtocol || '-'}</td>
+                    <td class="actions-cell">
+                        <button class="btn btn-sm btn-edit" onclick="showEditModal(${originalIndex})">✏️</button>
+                        <button class="btn btn-sm btn-delete" onclick="deleteDevice(${originalIndex})">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         // Reset Filters
         function resetFilters() {
             document.getElementById('searchInput').value = '';
-            document.getElementById('locationFilter').value = '';
+            document.getElementById('stationFilter').value = '';
             document.getElementById('bandFilter').value = '';
-            document.getElementById('versionFilter').value = '';
+            document.getElementById('modeFilter').value = '';
             renderTable();
         }
 
@@ -893,15 +2198,16 @@
                 currentSort.direction = 'asc';
             }
             
-            const keys = ['location', 'device', 'voltage', 'version', 'ip', 'band', 'channelWidth', 'frequency'];
+            const keys = ['stationName', 'wirelessMode', 'brand', 'description', 'macAddress', 
+                         'voltage', 'firmwareVersion', 'ipAddress', 'band', 'channelWidth'];
             const key = keys[column];
             
             const sortedData = [...networkData].sort((a, b) => {
-                let aVal = a[key];
-                let bVal = b[key];
+                let aVal = a[key] || '';
+                let bVal = b[key] || '';
                 
                 // Special handling for IP addresses
-                if (key === 'ip') {
+                if (key === 'ipAddress') {
                     aVal = aVal.split('.').map(n => n.padStart(3, '0')).join('.');
                     bVal = bVal.split('.').map(n => n.padStart(3, '0')).join('.');
                 }
@@ -914,17 +2220,43 @@
             });
             
             headers[column].classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
-            renderTable(sortedData);
+            networkData = sortedData;
+            renderTable();
         }
 
         // Export to CSV
         function exportToCSV() {
-            const headers = ['Location', 'Device/MAC', 'Voltage', 'Version', 'IP Address', 'Band', 'Channel Width', 'Frequency', 'SSID', 'Protocol'];
+            const headers = ['Station Name', 'Wireless Mode', 'Brand', 'Description', 'MAC Address', 
+                           'Voltage', 'Firmware Version', 'IP Address', 'Band', 'Channel Width', 
+                           'Frequency1', 'Frequency2', 'Frequency3', 'Frequency4', 'SSID', 
+                           'Wireless Key', 'Radio Name', 'Data Rates', 'HT MCS', 'Wireless Protocol'];
+            
             const csvContent = [
                 headers.join(','),
                 ...networkData.map(row => 
-                    [row.location, row.device, row.voltage, row.version, row.ip, row.band, row.channelWidth, row.frequency, row.ssid, row.protocol]
-                    .map(val => `"${val}"`)
+                    [
+                        row.stationName,
+                        row.wirelessMode || '',
+                        row.brand || '',
+                        row.description || '',
+                        row.macAddress || '',
+                        row.voltage || '',
+                        row.firmwareVersion || '',
+                        row.ipAddress,
+                        row.band || '',
+                        row.channelWidth || '',
+                        row.frequency1 || '',
+                        row.frequency2 || '',
+                        row.frequency3 || '',
+                        row.frequency4 || '',
+                        row.ssid || '',
+                        row.wirelessKey || '',
+                        row.radioName || '',
+                        (row.dataRates || []).join(';'),
+                        (row.htMcs || []).join(';'),
+                        row.wirelessProtocol || ''
+                    ]
+                    .map(val => `"${String(val).replace(/"/g, '""')}"`)
                     .join(',')
                 )
             ].join('\n');
@@ -933,7 +2265,7 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `network_ips_${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `network_devices_${new Date().toISOString().split('T')[0]}.csv`;
             a.click();
         }
 
@@ -944,7 +2276,7 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `network_ips_${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `network_devices_backup_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
         }
 
@@ -952,6 +2284,14 @@
         function updateLastUpdateTime() {
             const now = new Date();
             document.getElementById('lastUpdate').textContent = now.toLocaleString();
+        }
+
+        // Click outside modal to close
+        window.onclick = function(event) {
+            const modal = document.getElementById('deviceModal');
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
