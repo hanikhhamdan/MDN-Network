@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network IP Management Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-size: 28px;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-box button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .error-message {
+            color: var(--danger);
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            background: var(--light);
+            min-height: 100vh;
+        }
+
+        .dashboard.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header h1 {
+            color: var(--dark);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .stat-card.primary .value { color: var(--primary); }
+        .stat-card.success .value { color: var(--success); }
+        .stat-card.warning .value { color: var(--warning); }
+        .stat-card.danger .value { color: var(--danger); }
+
+        /* Controls */
+        .controls {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: var(--white);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        select {
+            padding: 10px 15px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Table */
+        .table-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .table-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: var(--dark);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background: #374151;
+        }
+
+        th.sortable:after {
+            content: ' ↕';
+            opacity: 0.3;
+        }
+
+        th.sort-asc:after {
+            content: ' ↑';
+            opacity: 1;
+        }
+
+        th.sort-desc:after {
+            content: ' ↓';
+            opacity: 1;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--light);
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        td {
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+
+        .ip-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            display: inline-block;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.online {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.offline {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* File Upload Area */
+        .upload-area {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .upload-box {
+            background: var(--white);
+            border: 2px dashed var(--gray);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-box:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .upload-box.dragover {
+            border-color: var(--primary);
+            background: #dbeafe;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .table-scroll {
+                overflow-x: auto;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid var(--light);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 12px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <h2>🔒 Network Dashboard</h2>
+            <p class="login-subtitle">Enter password to access</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="off">
+            <button onclick="login()">Access Dashboard</button>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>
+                    <span>🌐</span>
+                    Network IP Management Dashboard
+                </h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="exportToCSV()">
+                        📥 Export CSV
+                    </button>
+                    <button class="btn btn-success" onclick="exportToJSON()">
+                        📄 Export JSON
+                    </button>
+                    <button class="btn btn-danger" onclick="logout()">
+                        🚪 Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card primary">
+                <h3>Total Devices</h3>
+                <div class="value" id="totalDevices">0</div>
+            </div>
+            <div class="stat-card success">
+                <h3>Unique IPs</h3>
+                <div class="value" id="uniqueIPs">0</div>
+            </div>
+            <div class="stat-card warning">
+                <h3>Locations</h3>
+                <div class="value" id="totalLocations">0</div>
+            </div>
+            <div class="stat-card danger">
+                <h3>Duplicate IPs</h3>
+                <div class="value" id="duplicateIPs">0</div>
+            </div>
+        </div>
+
+        <!-- File Upload Area -->
+        <div class="upload-area">
+            <div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📁</div>
+                <h3>Drop Excel file here or click to browse</h3>
+                <p style="color: var(--gray); margin-top: 10px;">Supports .xlsx and .xls files</p>
+                <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls" onchange="handleFile(this.files[0])">
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by IP, location, device..." onkeyup="filterTable()">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="filter-group">
+                <select id="locationFilter" onchange="filterTable()">
+                    <option value="">All Locations</option>
+                </select>
+                <select id="bandFilter" onchange="filterTable()">
+                    <option value="">All Bands</option>
+                </select>
+                <select id="versionFilter" onchange="filterTable()">
+                    <option value="">All Versions</option>
+                </select>
+                <button class="btn btn-primary" onclick="resetFilters()">
+                    🔄 Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div class="table-wrapper">
+                <div class="table-scroll">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th class="sortable" onclick="sortTable(0)">Location</th>
+                                <th class="sortable" onclick="sortTable(1)">Device/MAC</th>
+                                <th class="sortable" onclick="sortTable(2)">Voltage</th>
+                                <th class="sortable" onclick="sortTable(3)">Version</th>
+                                <th class="sortable" onclick="sortTable(4)">IP Address</th>
+                                <th class="sortable" onclick="sortTable(5)">Band</th>
+                                <th class="sortable" onclick="sortTable(6)">Channel Width</th>
+                                <th class="sortable" onclick="sortTable(7)">Frequency</th>
+                                <th>SSID</th>
+                                <th>Protocol</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Network IP Dashboard © 2025 | Last updated: <span id="lastUpdate"></span></p>
+        </div>
+    </div>
+
+    <!-- Include XLSX library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <script>
+        // Configuration
+        const PASSWORD = 'admin123'; // CHANGE THIS PASSWORD!
+        let networkData = [];
+        let currentSort = { column: -1, direction: 'asc' };
+
+        // Sample data (will be replaced when Excel file is uploaded)
+        const sampleData = [
+            {
+                location: 'Aley',
+                device: 'RB OmniTIK APA-5HnD',
+                voltage: '12 V',
+                version: 'v6.39.2',
+                ip: '10.10.14.30',
+                band: '5GHz-A',
+                channelWidth: '20 MHz',
+                frequency: '5690',
+                ssid: 'aleynaderomnitik',
+                protocol: 'nv2 nstreme'
+            },
+            {
+                location: 'baalshmeih',
+                device: '3D78011BF5E0',
+                voltage: '-',
+                version: 'v6.48.3',
+                ip: '10.10.57.120',
+                band: '5GHz-A',
+                channelWidth: '40MHz Turbo',
+                frequency: '5180',
+                ssid: 'raselmaten2baalshmeih',
+                protocol: 'any'
+            },
+            {
+                location: 'bhamdoun',
+                device: '438002A37A75',
+                voltage: '24.4 V',
+                version: 'v6.48.3',
+                ip: '10.10.56.105',
+                band: '5GHz-A/N',
+                channelWidth: '20/40MHz eC',
+                frequency: '5280',
+                ssid: 'bhamdounsxt5.8',
+                protocol: 'nv2 nstreme'
+            }
+        ];
+
+        // Authentication
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMessage');
+            
+            if (password === PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').classList.add('active');
+                initializeDashboard();
+            } else {
+                errorMsg.textContent = 'Incorrect password. Please try again.';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                document.getElementById('dashboard').classList.remove('active');
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('errorMessage').textContent = '';
+            }
+        }
+
+        // Enter key support for login
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Initialize Dashboard
+        function initializeDashboard() {
+            // Load sample data initially
+            networkData = [...sampleData];
+            renderTable();
+            updateStats();
+            populateFilters();
+            updateLastUpdateTime();
+        }
+
+        // File Upload Handling
+        function handleFile(file) {
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    
+                    // Process the first sheet
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, {header: 1});
+                    
+                    // Parse the data (assuming no headers in first row)
+                    networkData = [];
+                    for (let i = 0; i < jsonData.length; i++) {
+                        const row = jsonData[i];
+                        if (row[4]) { // Only process rows with IP addresses
+                            networkData.push({
+                                location: row[0] || '',
+                                device: row[1] || '',
+                                voltage: row[2] || '',
+                                version: row[3] || '',
+                                ip: row[4] || '',
+                                band: row[5] || '',
+                                channelWidth: row[6] || '',
+                                frequency: row[7] || '',
+                                ssid: row[11] || '',
+                                protocol: row[15] || ''
+                            });
+                        }
+                    }
+                    
+                    // Update display
+                    renderTable();
+                    updateStats();
+                    populateFilters();
+                    updateLastUpdateTime();
+                    
+                    // Update upload box
+                    document.getElementById('uploadBox').innerHTML = `
+                        <div style="color: var(--success);">
+                            ✅ File loaded successfully!<br>
+                            <strong>${file.name}</strong><br>
+                            ${networkData.length} devices imported
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        document.getElementById('uploadBox').innerHTML = `
+                            <div class="upload-icon">📁</div>
+                            <h3>Drop Excel file here or click to browse</h3>
+                            <p style="color: var(--gray); margin-top: 10px;">Supports .xlsx and .xls files</p>
+                            <input type="file" id="fileInput" class="hidden" accept=".xlsx,.xls" onchange="handleFile(this.files[0])">
+                        `;
+                    }, 3000);
+                    
+                } catch (error) {
+                    alert('Error reading file: ' + error.message);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Drag and Drop
+        const uploadBox = document.getElementById('uploadBox');
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.classList.add('dragover');
+        });
+
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.classList.remove('dragover');
+        });
+
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && (file.name.endsWith('.xlsx') || file.name.endsWith('.xls'))) {
+                handleFile(file);
+            }
+        });
+
+        // Render Table
+        function renderTable(data = networkData) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.location}</td>
+                    <td>${row.device}</td>
+                    <td>${row.voltage}</td>
+                    <td>${row.version}</td>
+                    <td><span class="ip-badge">${row.ip}</span></td>
+                    <td>${row.band}</td>
+                    <td>${row.channelWidth}</td>
+                    <td>${row.frequency}</td>
+                    <td>${row.ssid}</td>
+                    <td>${row.protocol}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Update Statistics
+        function updateStats() {
+            document.getElementById('totalDevices').textContent = networkData.length;
+            
+            const uniqueIPs = new Set(networkData.map(d => d.ip));
+            document.getElementById('uniqueIPs').textContent = uniqueIPs.size;
+            
+            const locations = new Set(networkData.map(d => d.location));
+            document.getElementById('totalLocations').textContent = locations.size;
+            
+            const ipCounts = {};
+            networkData.forEach(d => {
+                ipCounts[d.ip] = (ipCounts[d.ip] || 0) + 1;
+            });
+            const duplicates = Object.values(ipCounts).filter(count => count > 1).length;
+            document.getElementById('duplicateIPs').textContent = duplicates;
+        }
+
+        // Populate Filters
+        function populateFilters() {
+            // Location filter
+            const locations = [...new Set(networkData.map(d => d.location))].sort();
+            const locationFilter = document.getElementById('locationFilter');
+            locationFilter.innerHTML = '<option value="">All Locations</option>';
+            locations.forEach(loc => {
+                locationFilter.innerHTML += `<option value="${loc}">${loc}</option>`;
+            });
+            
+            // Band filter
+            const bands = [...new Set(networkData.map(d => d.band))].sort();
+            const bandFilter = document.getElementById('bandFilter');
+            bandFilter.innerHTML = '<option value="">All Bands</option>';
+            bands.forEach(band => {
+                bandFilter.innerHTML += `<option value="${band}">${band}</option>`;
+            });
+            
+            // Version filter
+            const versions = [...new Set(networkData.map(d => d.version))].sort();
+            const versionFilter = document.getElementById('versionFilter');
+            versionFilter.innerHTML = '<option value="">All Versions</option>';
+            versions.forEach(ver => {
+                versionFilter.innerHTML += `<option value="${ver}">${ver}</option>`;
+            });
+        }
+
+        // Filter Table
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const locationFilter = document.getElementById('locationFilter').value;
+            const bandFilter = document.getElementById('bandFilter').value;
+            const versionFilter = document.getElementById('versionFilter').value;
+            
+            const filteredData = networkData.filter(row => {
+                const matchesSearch = !searchTerm || 
+                    Object.values(row).some(val => 
+                        String(val).toLowerCase().includes(searchTerm)
+                    );
+                
+                const matchesLocation = !locationFilter || row.location === locationFilter;
+                const matchesBand = !bandFilter || row.band === bandFilter;
+                const matchesVersion = !versionFilter || row.version === versionFilter;
+                
+                return matchesSearch && matchesLocation && matchesBand && matchesVersion;
+            });
+            
+            renderTable(filteredData);
+        }
+
+        // Reset Filters
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('bandFilter').value = '';
+            document.getElementById('versionFilter').value = '';
+            renderTable();
+        }
+
+        // Sort Table
+        function sortTable(column) {
+            const headers = document.querySelectorAll('th');
+            headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+            
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+            
+            const keys = ['location', 'device', 'voltage', 'version', 'ip', 'band', 'channelWidth', 'frequency'];
+            const key = keys[column];
+            
+            const sortedData = [...networkData].sort((a, b) => {
+                let aVal = a[key];
+                let bVal = b[key];
+                
+                // Special handling for IP addresses
+                if (key === 'ip') {
+                    aVal = aVal.split('.').map(n => n.padStart(3, '0')).join('.');
+                    bVal = bVal.split('.').map(n => n.padStart(3, '0')).join('.');
+                }
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            headers[column].classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+            renderTable(sortedData);
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+            const headers = ['Location', 'Device/MAC', 'Voltage', 'Version', 'IP Address', 'Band', 'Channel Width', 'Frequency', 'SSID', 'Protocol'];
+            const csvContent = [
+                headers.join(','),
+                ...networkData.map(row => 
+                    [row.location, row.device, row.voltage, row.version, row.ip, row.band, row.channelWidth, row.frequency, row.ssid, row.protocol]
+                    .map(val => `"${val}"`)
+                    .join(',')
+                )
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `network_ips_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        // Export to JSON
+        function exportToJSON() {
+            const jsonContent = JSON.stringify(networkData, null, 2);
+            const blob = new Blob([jsonContent], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `network_ips_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+
+        // Update Last Update Time
+        function updateLastUpdateTime() {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = now.toLocaleString();
+        }
+    </script>
+</body>
+</html>
